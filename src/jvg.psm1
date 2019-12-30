@@ -30,4 +30,17 @@ function jvgChocoUpgradeAll {
 
 function lsw { Get-ChildItem $args -Exclude .*  | Format-Wide Name -AutoSize }
 
+function jvgSolutionClean {
+    Param(
+        [Alias("vs")]
+        [switch]$RemoveVsFolder
+    )
+    if($RemoveVsFolder){
+        Get-ChildItem * -Recurse -Directory -Include 'bin','obj','.vs' -Force | Remove-Item -Recurse -Force 
+    } else {
+        Get-ChildItem * -Recurse -Directory -Include 'bin','obj' -Force | Remove-Item -Recurse -Force 
+    }
+    
+}
+
 Export-ModuleMember -Function *
