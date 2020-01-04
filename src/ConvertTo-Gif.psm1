@@ -21,12 +21,8 @@ function ConvertTo-Gif {
         [int]$Fps = 15
 
     )
-
-    
     $palette="palette${(New-Guid)}.png"
-
     $filters="fps=$Fps,scale=${Scale}:-1:flags=lanczos"
-
     ffmpeg -v warning -ss $StartTime -t $Duration -i $InputFile -vf "$filters,palettegen" -y $palette
     ffmpeg -v warning -ss $StartTime -t $Duration -i $InputFile -i $palette -lavfi "$filters [x]; [x][1:v] paletteuse" -y $OutputFile
     Remove-Item $palette 

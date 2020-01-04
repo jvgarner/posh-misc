@@ -1,5 +1,5 @@
 <#
-.Synopsis
+.SYNOPSIS
     Show calendar. Similar to cal in *nix but does not support any options. 
     Does not output objects and intended for visual use only.
 .EXAMPLE

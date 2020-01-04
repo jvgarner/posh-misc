@@ -20,11 +20,7 @@ function ConvertTo-Mp3 {
         [string[]]$Paths
     )
     
-    process {
-        if (!$Paths) {
-            return
-        }
-  
+    process {  
         $resolvedPaths = Resolve-Path $Paths -ErrorAction SilentlyContinue
         foreach($path in $resolvedPaths) {
             if ($path -contains "[" -or $path -contains "]") {
