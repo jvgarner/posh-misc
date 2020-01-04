@@ -12,7 +12,7 @@
 .OUTPUTS
   Size value as number or string.
 #>
-function Get-DirSize
+function Get-DirectorySize
 {
     Param(
         [Parameter(ValueFromPipeline = $true, Position = 0)]
@@ -30,5 +30,5 @@ function Get-DirSize
     return $actualSize
 }
 
-New-Alias -Name gds -value Get-DirSize
-Export-ModuleMember -Function Get-DirSize -Alias gds
+New-Alias -Name gds -value Get-DirectorySize
+Export-ModuleMember -Function Get-DirectorySize -Alias gds
