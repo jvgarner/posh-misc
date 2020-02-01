@@ -27,9 +27,9 @@ function Backup-UserData {
         Robocopy.exe x:\usr\   d:\usr\   /MIR /R:5 /W:5 /MT:32 /NP /UNILOG+:c:\Logs\Backups\x-usr-$timestamp.log 
         Robocopy.exe x:\media\ d:\media\ /MIR /R:5 /W:5 /MT:32 /NP /UNILOG+:c:\Logs\Backups\x-media-$timestamp.log 
     } else {
+        Robocopy.exe C:\usr\ X:\usr\     /MIR /R:5 /W:5 /MT:32 /NP /UNILOG+:c:\Logs\Backups\c-usr-$timestamp.log 
         $target = "X:\usr\jvg\UserDirectory"
         Robocopy.exe $HOME $target /MIR /R:5 /W:5 /MT:32 /NP /XJD /XA:SH /XD AppData IISExpress .vscode .nuget .android .atom .dotnet .docker .eclipse .templateengine docker .omnisharp /UNILOG+:c:\Logs\Backups\c-usr-$timestamp.log 
-        Robocopy.exe C:\usr\ X:\usr\     /MIR /R:5 /W:5 /MT:32 /NP /UNILOG+:c:\Logs\Backups\c-usr-$timestamp.log 
     }
 }
 
