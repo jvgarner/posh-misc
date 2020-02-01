@@ -1,26 +1,48 @@
 <#
 .SYNOPSIS
-  Deletes build and (optionally) local vs settings folders.
+  Deletes bin and obj directories plus some optional other directories.
 .PARAMETER RemoveVsDirectory
-  Deletes local visual studio settings such as build configuration, startup projects, etc.
+  Deletes .vs directories which contain local visual studio settings such as build configuration, startup projects, etc.
+.PARAMETER RemovePackages
+  Removes packages directories.
+.PARAMETER RemoveGit
+  Removes git directories (repositories).
 .PARAMETER WhatIf
-  Outputs the folders that would be deleted.
+  Outputs the directories that would be deleted.
 .EXAMPLE
   Remove-VisualStudioBuildDirectories -RemoveVsDirectory
 #>
 function Remove-VisualStudioBuildDirectories {
-    Param(
-        [Parameter(ValueFromPipeline = $true, Position = 0)]
-        [string]$Path = ".",
+  Param(
+      [Parameter(ValueFromPipeline = $true, Position = 0)]
+      [string]$Path = ".",
 
-        [Alias("rmvs")]
-        [switch]$RemoveVsDirectory,
+      [Alias("rmvs")]
+      [switch]$RemoveVsDirectory,
 
-        [switch]$WhatIf
-    )
-    
-    $folders = if($RemoveVsDirectory) {'bin','obj','.vs'} else {'bin','obj'}
-    Get-ChildItem $Path -Recurse -Directory -Include $folders -Force | Remove-Item -Recurse -Force -WhatIf:$WhatIf
+      [Alias("rmpkg")]
+      [switch]$RemovePackages,
+
+      [Alias("rmgit")]
+      [switch]$RemoveGit,
+
+      [switch]$WhatIf
+  )
+  [System.Collections.ArrayList]$folders = 'bin', 'obj' 
+  
+  if($RemoveVsDirectory) {
+      $folders.Add('.vs')
+  }
+
+  if($RemovePackages) {
+      $folders.Add('packages')
+  }
+
+  if($RemoveGit) {
+      $folders.Add('.git')
+  }
+
+  Get-ChildItem $Path -Recurse -Directory -Include $folders -Force | Remove-Item -Recurse -Force -WhatIf:$WhatIf
 }
 
 Export-ModuleMember -Function *
