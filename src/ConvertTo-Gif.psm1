@@ -26,7 +26,7 @@ function ConvertTo-Gif {
     )
     $palette="palette${(New-Guid)}.png"
     $filters="fps=$Fps,scale=${Scale}:-1:flags=lanczos"
-    if ($srtFile) {
+    if ($SubtitleFilename) {
         $filters = "$filters,subtitles='$SubtitleFilename':force_style='Fontsize=24'"
         ffmpeg -v warning -ss $StartTime -t $Duration -i $InputFile -vf "$filters,palettegen" -y $palette
         ffmpeg -v warning -i $InputFile -i $palette -ss $StartTime -t $Duration -lavfi "$filters [x];[x][1:v] paletteuse" -y $OutputFile
