@@ -1,17 +1,6 @@
-# quick navigation functions
-# function Set-LocationUserDirectory {
-#     Set-Location c:\usr\jvg\
-# }
-# Set-Alias ~ Set-LocationUserDirectory
-
-# function Set-LocationSrc {
-#     Set-Location c:\usr\jvg\src\
-# }
-# Set-Alias csrc Set-LocationSrc
-
-
-function Invoke-Weather {
-    Invoke-RestMethod wttr.in/Mississauga?q0 -useragent "curl"
+function Get-Weather {
+    # Invoke-RestMethod wttr.in/Mississauga?q0 -useragent "curl"
+    curl wttr.in/?format="%T+%l+%c+%f+%w+%h+%p+%P"
 }
 
 # TODO: Cleanup script - empty recycle bin, remove downloads, what else?
@@ -21,13 +10,19 @@ function Invoke-Weather {
 # visual studio config?
 
 function Clear-UserData {
-    # Cleanup folders
-    # Remove bank transaction qfx files from download folder
-    Get-ChildItem -Path 'C:\Users\jvg\Downloads' -Filter *.qfx | Remove-Item
-    Get-ChildItem -Path 'C:\Users\jvg\Downloads' -Filter *.torrent | Remove-Item
+    try {
+        # Cleanup folders
+        Get-ChildItem -Path 'C:\Users\jvg\Downloads' -Filter *.qfx | Remove-Item
+        Get-ChildItem -Path 'C:\Users\jvg\Downloads' -Filter *.torrent | Remove-Item
+        Get-ChildItem -Path 'C:\Users\jvg\Desktop' -Filter *.lnk | Remove-Item 
+        Get-ChildItem -Path 'C:\Users\Public\Desktop' -Filter *.lnk | Remove-Item 
 
-    # Empty recycling bin
-    Clear-RecycleBin -Force
+        # Empty recycling bin
+        #Clear-RecycleBin -Force
+    }
+    catch {
+        New-BurntToastNotification -Text $_.Exception.Message -SnoozeAndDismiss
+    }
 }
 
 function Backup-UserData {
@@ -52,11 +47,6 @@ function Backup-UserData {
     #Set-Location -Path X:\jvg\backups
     Set-Location -Path C:\users\jvg\Documents\
     Duplicacy backup -vss
-    if ($LASTEXITCODE -eq 0)
-    {
-        New-BurntToastNotification -Text "User Data Backup Success"
-    }
-
     if ($LASTEXITCODE -ne 0)
     {
         New-BurntToastNotification -Text "User Data Backup Failure" -SnoozeAndDismiss
@@ -66,10 +56,6 @@ function Backup-UserData {
 function Backup-Cloud {
     Set-Location -Path x:\jvg\backup-dummy\ 
     Duplicacy copy -from default -to onedrive
-    if ($LASTEXITCODE -eq 0)
-    {
-        New-BurntToastNotification -Text "Cloud Data Backup Success"
-    }
     if ($LASTEXITCODE -ne 0)
     {
         New-BurntToastNotification -Text "Cloud Data Backup Failure" -SnoozeAndDismiss
@@ -83,19 +69,47 @@ function Backup-Plex {
     # 7z.exe a -t7z X:\Archive\plex.7z 'C:\Users\jvg\AppData\Local\Plex Media Server\' -mx0 -xr!Cache -xr!Logs
     7z.exe u -uq0 -mx9 X:\jvg\Archive\plex.7z 'C:\Users\jvg\AppData\Local\Plex Media Server\'
     Start-Process "C:\Program Files (x86)\Plex\Plex Media Server\Plex Media Server.exe"
-    if ($LASTEXITCODE -eq 0)
-    {
-        New-BurntToastNotification -Text "Plex Data Backup Success"
-    }
     if ($LASTEXITCODE -ne 0)
     {
         New-BurntToastNotification -Text "Plex Data Backup Failure" -SnoozeAndDismiss
     }
 }
 
-Set-Alias jvgBackup Backup-UserData 
-Set-Alias jvgClean Clear-UserData 
-Set-Alias jvgWeather Invoke-Weather 
-Export-ModuleMember -Function * -Alias * 
+function Invoke-ChocoUpgrade {
+    choco upgrade all -y --except="microsoft-windows-terminal,pwsh,powershell-core"
+    if ($LASTEXITCODE -ne 0)
+    {
+        New-BurntToastNotification -Text "Choco Upgrade Failure" -SnoozeAndDismiss
+    }
+}
+
+function Invoke-SnapraidSync {
+    C:\tools\snapraid\snapraid.exe sync
+    if ($LASTEXITCODE -ne 0)
+    {
+        New-BurntToastNotification -Text "Snapraid Failure" -SnoozeAndDismiss
+    }
+}
+
+function Invoke-NightlyTasks {
+    Backup-UserData;
+    # Backup-Plex;
+    Backup-Cloud;
+    Invoke-ChocoUpgrade;
+    Clear-UserData;
+    Invoke-SnapraidSync;
+
+    New-BurntToastNotification -Text "Data Backups and Cleanup Success"
+}
+
+Set-Alias jBackup Backup-UserData 
+Set-Alias jClean Clear-UserData 
+Set-Alias jWttr Get-Weather 
 
 # Set-Alias jvgEdit code c:\Users\jvg\Documents\Source\public\posh-misc\src\
+function Set-LocationSrc {
+    Set-Location ~\Documents\Source\
+}
+Set-Alias cdsrc Set-LocationSrc
+
+Export-ModuleMember -Function * -Alias * 
