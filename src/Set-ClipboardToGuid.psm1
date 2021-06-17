@@ -19,5 +19,5 @@ function Get-Guid {
 }
 
 New-Alias -Name guid -value Get-Guid
-New-Alias -Name guidc -value Set-ClipboardToGuid
+New-Alias -Name guidscb -value Set-ClipboardToGuid
 Export-ModuleMember -Function * -Alias *
