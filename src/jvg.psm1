@@ -45,21 +45,24 @@ function Backup-UserData {
 
     # DOCUMENTS TO CLOUD BACKUP
     #Set-Location -Path X:\jvg\backups
-    Set-Location -Path C:\users\jvg\Documents\
+    
+    Push-Location C:\users\jvg\Documents\
     Duplicacy backup -vss
     if ($LASTEXITCODE -ne 0)
     {
         New-BurntToastNotification -Text "User Data Backup Failure" -SnoozeAndDismiss
     }
+    Pop-Location
 }
 
 function Backup-Cloud {
-    Set-Location -Path x:\jvg\backup-dummy\ 
+    Push-Location x:\jvg\backup-dummy\ 
     Duplicacy copy -from default -to onedrive
     if ($LASTEXITCODE -ne 0)
     {
         New-BurntToastNotification -Text "Cloud Data Backup Failure" -SnoozeAndDismiss
     }
+    Pop-Location
 }
 
 function Backup-Plex {
@@ -105,11 +108,5 @@ function Invoke-NightlyTasks {
 Set-Alias jBackup Backup-UserData 
 Set-Alias jClean Clear-UserData 
 Set-Alias jWttr Get-Weather 
-
-# Set-Alias jvgEdit code c:\Users\jvg\Documents\Source\public\posh-misc\src\
-function Set-LocationSrc {
-    Set-Location ~\Documents\Source\
-}
-Set-Alias cdsrc Set-LocationSrc
 
 Export-ModuleMember -Function * -Alias * 

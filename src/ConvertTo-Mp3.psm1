@@ -34,13 +34,13 @@ function ConvertTo-Mp3 {
                     Copy-Item -Path $path -Recurse -Destination $targetPath -Container
                     Get-ChildItem $targetPath -Recurse -Include ('*.flac', '*.ape', '*.alac') | 
                         ForEach-Object -Parallel {
-                            $input = $using:targetPath + "\" + $_.Name
+                            $inputPath = $using:targetPath + "\" + $_.Name
                             $output = $using:targetPath + "\" + $_.BaseName + ".mp3"
                             Write-Output "Encoding $output"
-                            ffmpeg -i "$input" -ab 320k "$output" -hide_banner -loglevel panic
+                            ffmpeg -i "$inputPath" -ab 320k "$output" -hide_banner -loglevel panic
                             
-                            Write-Output "Removing $input"
-                            Remove-Item -Path $input -Force 
+                            Write-Output "Removing $inputPath"
+                            Remove-Item -Path $inputPath -Force 
                         }
                 } else {
                     Write-Output "Target path $targetPath already exists; aborting"
