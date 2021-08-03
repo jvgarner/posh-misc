@@ -26,5 +26,5 @@ Import-Module oh-my-posh -Scope Local
 Set-PoshPrompt -Theme pure
 
 # Import posh-misc modules not published to PSGallery
-$modulespath = "~\Documents\Source\public\posh-misc\src\"
+$modulespath = "~\src\posh-misc\src\"
 Get-ChildItem ($modulespath + "*.psm1") | ForEach-Object {Import-Module (Join-Path $modulespath $_.Name)} | Out-Null
