@@ -20,7 +20,7 @@ function Show-ChocoOutdated {
     $pretty = ($outdated -join ', ')
 
     If ($outdated.count -gt 0) {
-        New-BurntToastNotification -Text "Outdated chocolatey packages", "$pretty"
+        New-BurntToastNotification -Text "Outdated chocolatey packages", "$pretty"  -SnoozeAndDismiss
     }
 }
 
