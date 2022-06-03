@@ -14,17 +14,25 @@ Install-Module -Name 'Get-ChildItemColor' -AllowClobber
 # cd c:\tools\ ; git clone https://github.com/powerline/fonts.git; cd fonts; .\install.ps1
 #>
 
-# module imports and configurations
-Import-Module Get-ChildItemColor
-Set-Alias lsw Get-ChildItemColorFormatWide -Option AllScope
-
-Import-Module z -Scope Local 
-Import-Module PSReadLine -Scope Local 
-Import-Module posh-git -Scope Local 
-$env:POSH_GIT_ENABLED = $true
-Import-Module oh-my-posh -Scope Local
-Set-PoshPrompt -Theme pure
-
-# Import posh-misc modules not published to PSGallery
-$modulespath = "~\src\posh-misc\src\"
-Get-ChildItem ($modulespath + "*.psm1") | ForEach-Object {Import-Module (Join-Path $modulespath $_.Name)} | Out-Null
+If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not in the ISE
+    # z tab completion
+    Import-Module z
+    
+    # posh-git
+    Import-Module posh-git 
+    $env:POSH_GIT_ENABLED = $true
+    
+    # gci color
+    Import-Module Get-ChildItemColor
+    Set-Alias lsw Get-ChildItemColorFormatWide -option AllScope
+    
+    # Chocolatey
+    $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+    if (Test-Path($ChocolateyProfile)) {
+        Import-Module "$ChocolateyProfile"
+    }
+    
+    # Personal modules
+    $modulespath = 'c:\src\personal\posh-misc\src\'
+    Get-ChildItem ($modulespath + "*.psm1") | ForEach-Object {Import-Module (Join-Path $modulespath $_.Name)} | Out-Null
+}
