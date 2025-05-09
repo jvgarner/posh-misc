@@ -20,7 +20,7 @@ function Write-GitBranchesRecursive {
             Write-Host $loc -NoNewLine 
             Write-GitStatus (Get-GitStatus)
             Write-Host "`n"
-            git branch
+            git branch -vv
         }
     Set-Location $startDir 
 }
