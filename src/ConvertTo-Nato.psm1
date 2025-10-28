@@ -42,5 +42,5 @@ function ConvertTo-Nato {
     }
 }
 
-New-Alias -Name nato -value ConvertTo-Nato
-Export-ModuleMember -Function ConvertTo-Nato -Alias nato
+Set-Alias nato ConvertTo-Nato
+Export-ModuleMember -Function * -Alias * 

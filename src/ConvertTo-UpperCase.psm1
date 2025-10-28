@@ -18,5 +18,5 @@ function ConvertTo-UpperCase {
     return $Input.ToUpper();
 }
 
-New-Alias -Name uc -value ConvertTo-UpperCase
-Export-ModuleMember -Function ConvertTo-UpperCase -Alias uc
+Set-Alias uc ConvertTo-UpperCase
+Export-ModuleMember -Function * -Alias * 

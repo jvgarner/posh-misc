@@ -75,8 +75,14 @@ If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not i
         Write-Output 'gcb - Set-Clipboard'
         Write-Output 'z - cd improved'
         Write-Output 'oc - Octopus Deploy CLI'
+        Write-Output 'lc - ConvertTo-LowerCase'
+        Write-Output 'uc - ConvertTo-UpperCase'
+        Write-Output 'nato - ConvertTo-Nato'
+        Write-Output 'wc - Get-FileContentData'
         Write-Output 'ls - Get-ChildItemColor'
         Write-Output 'lsw - Get-ChildItemColorFormatWide'
+        Write-Output 'sh - Select-CommandHistory for parameter'
+        Write-Output 'touch - Set-FileTime'
         Get-ChildItemColor 'c:\src\personal\posh-misc\src\'
     }
 

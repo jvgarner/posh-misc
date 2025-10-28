@@ -82,5 +82,5 @@ function Get-FileContentData {
     }
 }
 
-New-Alias -Name wc -Value Get-FileContentData
-Export-ModuleMember -Function Get-FileContentData -Alias wc
+Set-Alias wc Get-FileContentData
+Export-ModuleMember -Function * -Alias * 

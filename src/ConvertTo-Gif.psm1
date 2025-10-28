@@ -41,4 +41,4 @@ function ConvertTo-Gif {
     Remove-Item $palette 
 }
 
-Export-ModuleMember -Function ConvertTo-Gif
+Export-ModuleMember -Function * -Alias *

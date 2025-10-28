@@ -138,5 +138,5 @@ function Set-FileTime {
   }
 }
 
-New-Alias -Name touch -value Set-FileTime
-Export-ModuleMember -Function Set-FileTime -Alias touch
+New-Alias touch Set-FileTime
+Export-ModuleMember -Function * -Alias *

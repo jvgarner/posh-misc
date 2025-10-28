@@ -11,3 +11,6 @@ function Get-Path
 { 
     $env:path -split ";" 
 }
+
+Set-Alias paths Get-Path
+Export-ModuleMember -Function * -Alias * 

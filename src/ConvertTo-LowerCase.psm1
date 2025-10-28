@@ -18,5 +18,5 @@ function ConvertTo-LowerCase {
     return $Input.ToLower();
 }
 
-New-Alias -Name lc -value ConvertTo-LowerCase
-Export-ModuleMember -Function ConvertTo-LowerCase -Alias lc
+Set-Alias lc ConvertTo-LowerCase 
+Export-ModuleMember -Function * -Alias * 

@@ -52,4 +52,4 @@ function New-SelfSignedPfx {
     Remove-Item $cerFilePath
 } 
 
-Export-ModuleMember -Function New-SelfSignedPfx
+Export-ModuleMember -Function * -Alias *

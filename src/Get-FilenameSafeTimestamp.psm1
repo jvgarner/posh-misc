@@ -24,5 +24,5 @@ function Get-FileNameSafeTimeStamp {
     return $Date.ToString('o').Replace(':', $ReplacementValue)
 }
 
-New-Alias -Name fsts -value Get-FileNameSafeTimeStamp
-Export-ModuleMember -Function Get-FileNameSafeTimeStamp -Alias fsts
+Set-Alias fsts Get-FileNameSafeTimeStamp
+Export-ModuleMember -Function * -Alias * 

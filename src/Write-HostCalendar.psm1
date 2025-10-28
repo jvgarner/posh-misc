@@ -51,5 +51,5 @@ Function Write-HostCalendar
     Write-Host "`n" # force empty line at end
 }
 
-New-Alias -Name cal -value Write-HostCalendar
-Export-ModuleMember -Function Write-HostCalendar -Alias cal
+New-Alias cal Write-HostCalendar
+Export-ModuleMember -Function * -Alias *

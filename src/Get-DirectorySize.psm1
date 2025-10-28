@@ -30,5 +30,5 @@ function Get-DirectorySize
     return $actualSize
 }
 
-New-Alias -Name gds -value Get-DirectorySize
-Export-ModuleMember -Function Get-DirectorySize -Alias gds
+New-Alias gds Get-DirectorySize
+Export-ModuleMember -Function * -Alias * 

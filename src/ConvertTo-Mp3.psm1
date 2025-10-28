@@ -75,4 +75,4 @@ function ConvertTo-Mp3 {
   }
 }
 
-Export-ModuleMember -Function ConvertTo-Mp3
+Export-ModuleMember -Function * -Alias *

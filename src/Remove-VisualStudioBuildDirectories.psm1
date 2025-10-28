@@ -45,4 +45,4 @@ function Remove-VisualStudioBuildDirectories {
   Get-ChildItem $Path -Recurse -Directory -Include $folders -Force | Remove-Item -Recurse -Force -WhatIf:$WhatIf
 }
 
-Export-ModuleMember -Function *
+Export-ModuleMember -Function * -Alias *

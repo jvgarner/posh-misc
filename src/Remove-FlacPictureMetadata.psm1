@@ -29,4 +29,4 @@ function Remove-FlacPictureMetadata {
     }
 }
 
-Export-ModuleMember -Function Remove-FlacPictureMetadata
+Export-ModuleMember -Function * -Alias *

@@ -25,4 +25,4 @@ function Get-HumanReadableBytes
     "{0:N1} {1}" -f $Bytes, $suffix[$i]
 }
 
-Export-ModuleMember -Function Get-HumanReadableBytes
+Export-ModuleMember -Function * -Alias *
