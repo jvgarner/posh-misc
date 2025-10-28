@@ -19,7 +19,6 @@ function Write-GitStatusesRecursive {
             Set-Location $loc > $null;
             Write-Host $loc -NoNewLine 
             Write-GitStatus (Get-GitStatus)
-            Write-Host "`n"
         }
     Set-Location $startDir 
 }
