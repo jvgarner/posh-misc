@@ -7,10 +7,10 @@ Get path vars as a list.
 
 #>
 
-function Get-Path 
+function Get-Paths
 { 
     $env:path -split ";" 
 }
 
-Set-Alias paths Get-Path
+Set-Alias paths Get-Paths
 Export-ModuleMember -Function * -Alias * 

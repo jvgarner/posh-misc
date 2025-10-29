@@ -8,6 +8,8 @@ Install-Module -Name 'z' -AllowClobber
 Install-Module -Name 'oh-my-posh' -AllowClobber
 Install-Module -Name 'Get-ChildItemColor' -AllowClobber
 
+Install-PSResource PSCalendar
+
 # reminder: to update: Update-Module
 
 # install fonts:

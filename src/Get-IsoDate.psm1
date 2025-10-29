@@ -8,8 +8,13 @@ Get the current date in ISO format eg YYYY-MM-DD
 #>
 
 function Get-IsoDate 
-{ 
-    Get-Date -UFormat '+%Y-%m-%d'
+{
+    Param(
+        [Parameter(ValueFromPipeline = $true, Position = 0)]
+        [DateTime]$Date = (Get-Date)
+    )
+    #Get-Date -UFormat '+%Y-%m-%d'
+    $Date.TryFormat('+%Y-%m-%d')
 }
 
 Set-Alias gid Get-IsoDate 

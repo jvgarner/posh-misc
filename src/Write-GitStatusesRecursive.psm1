@@ -9,7 +9,7 @@ Write the git status for every git repository found within the current directory
 Write-GitStatuses
 
 .NOTES
-Depends on posh-git 
+Requires posh-git to be installed
 #>
 function Write-GitStatusesRecursive {
     $startDir = Get-Location

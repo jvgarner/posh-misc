@@ -9,6 +9,7 @@
 #>
 Function Write-HostCalendar
 {
+    # TODO: Add "A" parameter
     Param(
         [Parameter(Position=0)]
         [DateTime]$Date = (Get-Date)
@@ -51,5 +52,5 @@ Function Write-HostCalendar
     Write-Host "`n" # force empty line at end
 }
 
-New-Alias cal Write-HostCalendar
+#New-Alias cal Write-HostCalendar
 Export-ModuleMember -Function * -Alias *

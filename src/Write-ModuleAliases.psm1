@@ -133,7 +133,5 @@ function Write-ModuleAliases {
         }
     }
 
-    # Output as CSV-style table
-#    $definitionAliasMap | Sort-Object Definition | Format-Table -AutoSize
     $definitionAliasMap | Sort-Object Definition
 }
