@@ -14,5 +14,5 @@ function Select-CommandHistory {
 
 }
 
-Set-Alias sh Select-CommandHistory
+New-Alias sh Select-CommandHistory
 Export-ModuleMember -Function * -Alias * 

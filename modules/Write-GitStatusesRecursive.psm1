@@ -22,5 +22,6 @@ function Write-GitStatusesRecursive {
         }
     Set-Location $startDir 
 }
-Set-Alias gits Write-GitStatusesRecursive
+
+New-Alias gits Write-GitStatusesRecursive
 Export-ModuleMember -Function * -Alias *

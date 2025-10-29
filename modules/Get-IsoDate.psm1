@@ -16,5 +16,5 @@ function Get-IsoDate
     $Date.ToString('yyyy-MM-dd')
 }
 
-Set-Alias gid Get-IsoDate 
+New-Alias gid Get-IsoDate 
 Export-ModuleMember -Function * -Alias * 

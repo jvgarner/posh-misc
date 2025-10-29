@@ -20,5 +20,5 @@ function ConvertTo-LowerCase {
     }
 }
 
-Set-Alias lc ConvertTo-LowerCase 
+New-Alias lc ConvertTo-LowerCase 
 Export-ModuleMember -Function * -Alias * 
