@@ -1,21 +1,21 @@
 <#
 .SYNOPSIS
-  Uppercase the input
+  Uppercase the text
 .DESCRIPTION
-  Uppercase the input
+  Uppercase the text
 .INPUTS
   System.String[]
 .OUTPUTS
-  Input as uppercase
+  Text as uppercase
 #>
 
 function ConvertTo-UpperCase {
     Param(
         [Parameter(ValueFromPipeline = $true, Position = 0)]
-        [string]$Input = ""
+        [string]$Text
     )
     
-    return $Input.ToUpper();
+    return $Text.ToUpper();
 }
 
 Set-Alias uc ConvertTo-UpperCase

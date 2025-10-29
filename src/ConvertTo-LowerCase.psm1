@@ -1,21 +1,23 @@
 <#
 .SYNOPSIS
-  Lowercase the input
+  Lowercase the text
 .DESCRIPTION
-  Lowercase the input
+  Lowercase the text
 .INPUTS
   System.String[]
 .OUTPUTS
-  Input as Lowercase
+  Text as Lowercase
 #>
 
 function ConvertTo-LowerCase {
     Param(
-        [Parameter(ValueFromPipeline = $true, Position = 0)]
-        [string]$Input = ""
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true, Position = 0)]
+        [string]$Text
     )
-    
-    return $Input.ToLower();
+
+    process {
+        Write-Output $Text.ToLower()
+    }
 }
 
 Set-Alias lc ConvertTo-LowerCase 
