@@ -13,8 +13,7 @@ function Get-IsoDate
         [Parameter(ValueFromPipeline = $true, Position = 0)]
         [DateTime]$Date = (Get-Date)
     )
-    #Get-Date -UFormat '+%Y-%m-%d'
-    $Date.TryFormat('+%Y-%m-%d')
+    $Date.ToString('yyyy-MM-dd')
 }
 
 Set-Alias gid Get-IsoDate 
