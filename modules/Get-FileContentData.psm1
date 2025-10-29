@@ -37,32 +37,9 @@ function Get-FileContentData {
         [switch]$c
     )
     
-    function Test-IsTextFile {
-        param ([string]$Path)
-
-        try {
-            $bytes = [System.IO.File]::ReadAllBytes($Path)
-            $sample = $bytes[0..([Math]::Min($bytes.Length - 1, 1024))]
-            foreach ($b in $sample) {
-                if ($b -lt 9 -or ($b -gt 13 -and $b -lt 32)) {
-                    return $false
-                }
-            }
-            return $true
-        } catch {
-            return $false
-        }
-    }
-
     foreach ($Path in $Paths) {
         if (-not (Test-Path $Path)) {
             Write-Warning "File not found: $Path"
-            continue
-        }
-
-        
-        if (-not (Test-IsTextFile -Path $Path)) {
-            Write-Warning "Skipping binary file: $Path"
             continue
         }
 
