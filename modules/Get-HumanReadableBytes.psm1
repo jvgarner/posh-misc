@@ -7,6 +7,9 @@
   Decimal
 .OUTPUTS
   String
+.EXAMPLE
+  Get-HumanReadableBytes 10000
+  Output: 9.77KB
 #>
 function Get-HumanReadableBytes {
     Param(
