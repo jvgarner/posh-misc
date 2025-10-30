@@ -36,7 +36,6 @@
      32   288       1502 test3.txt
 #>
 function Get-FileContentData {
-    [CmdletBinding(DefaultParameterSetName = 'All')]
     param (
         [Parameter(Mandatory=$true, ValueFromRemainingArguments=$true)]
         [string[]]$Paths,
