@@ -1,7 +1,5 @@
 <#
 .SYNOPSIS
-  Converts input text to uppercase.
-.DESCRIPTION
   Converts input text to uppercase. Uses the current culture of the system.
 .PARAMETER Text
   The string to convert to uppercase.
