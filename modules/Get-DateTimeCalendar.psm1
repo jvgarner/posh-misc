@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Get the current date, time, and calendar.
+  Get the current date, time, and calendar. Depends on the PSCalendar module.
 .EXAMPLE
   Get-DateTimeCalendar
   Output:
@@ -20,6 +20,12 @@
 #>
 Function Get-DateTimeCalendar
 {
+    $requiredModule = 'PSCalendar'
+    if (-not (Get-Module -ListAvailable -Name $requiredModule)) {
+        Write-Error "Required module '$requiredModule' is not installed. Aborting execution."
+        return
+    }
+  
     Get-Date 
     Get-Calendar
 }
