@@ -1,8 +1,10 @@
 <#
 .SYNOPSIS
   Converts input text to uppercase.
+.DESCRIPTION
+  Converts input text to uppercase. Uses the current culture of the system.
 .PARAMETER Text
-  The string to convert to uppercase. Uses current culture of the system.
+  The string to convert to uppercase.
 .INPUTS
   System.String
 .OUTPUTS
@@ -14,7 +16,7 @@
   "hello" | ConvertTo-upperCase
   Output: HELLO
 .LINK
-ConvertTo-LowerCase
+  ConvertTo-LowerCase
 #>
 function ConvertTo-UpperCase {
     Param(

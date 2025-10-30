@@ -1,16 +1,23 @@
 <#
 .SYNOPSIS
-  Gets the size of a directory.
-.DESCRIPTION
-  Gets the size of a directory.
+  Gets the size of a directory in bytes.
 .PARAMETER Path
-  The path of the directory to get the size of.
+  The path of the directory.
 .PARAMETER HumanReadable
-  Output the value as a human readable string.
+  Output the value as a human readable string eg 1KB instead of 1024.
 .INPUTS
-  System.String[]
+  System.String
 .OUTPUTS
-  Size value as number or string.
+  System.String
+.EXAMPLE
+  Get-DirectorySize
+  Output: 124793
+.EXAMPLE
+  Get-DirectorySize -HumanReadable
+  Output: 121.87 KB
+.EXAMPLE
+  gds -h
+  Output: 121.87 KB
 #>
 function Get-DirectorySize
 {

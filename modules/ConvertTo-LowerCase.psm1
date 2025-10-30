@@ -1,7 +1,5 @@
 <#
 .SYNOPSIS
-  Converts input text to lowercase.
-.DESCRIPTION
   Converts input text to lowercase. Uses the current culture of the system.
 .PARAMETER Text
   The string to convert to lowercase.
@@ -16,7 +14,7 @@
   "HELLO" | ConvertTo-LowerCase
   Output: hello
 .LINK
-ConvertTo-UpperCase
+  ConvertTo-UpperCase
 #>
 function ConvertTo-LowerCase {
     Param(

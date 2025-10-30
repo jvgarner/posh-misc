@@ -1,16 +1,18 @@
 <#
 .SYNOPSIS
-  Get an emoji
-.DESCRIPTION
-  Gets an emoji based on the search string parameter
+  Gets an emoji based on the search string provided.
 .PARAMETER SearchString
   The word or phrase to search for.
 .OUTPUTS
   The emoji with the search phrase highlighted.
 .EXAMPLE
   Get-Emoji ghost
+  Output:
+  🫥 dotted line face depressed hidden invisible meh whatever wtv disappear ghost hide
+  👻 ghost boo creature excited face fairy tale fairytale fantasy ghostface halloween haunting monster scary silly spooky
 .EXAMPLE
-  Get-Emoji "japan flag"
+  emoji coffee
+  Output: ☕ coffee beverage cafe caffeine drink hot hot beverage hotbeverage morning starbucks steaming tea
 #>
 
 function Get-Emoji

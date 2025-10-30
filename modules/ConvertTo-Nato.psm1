@@ -1,10 +1,8 @@
 <#
 .SYNOPSIS
-  Converts input text to nato strings.
-.DESCRIPTION
-  Converts input text to nato strings. It generates one line per word so is best used with short phrases, names, etc.
+  Converts input text to nato strings, one line per word.
 .PARAMETER Text
-  The input text to convert to nato strings.
+  The input text to convert.
 .INPUTS
   System.String
 .OUTPUTS
