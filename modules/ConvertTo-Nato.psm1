@@ -1,17 +1,26 @@
 <#
 .SYNOPSIS
-  Convert the input to the nato alphabet equivalent for the output.
+  Converts input text to nato strings.
 .DESCRIPTION
-  Convert the input to the nato alphabet equivalent for the output.
+  Converts input text to nato strings. It generates one line per word so is best used with short phrases, names, etc.
+.PARAMETER Text
+  The input text to convert to nato strings.
 .INPUTS
-  System.String[]
+  System.String
 .OUTPUTS
-  The nato equivalent of the input, one line per word.
+  System.String
+.EXAMPLE
+  ConvertTo-Nato "abc"
+  Output: Alfa Bravo Charlie
+.EXAMPLE
+  "hello world" | ConvertTo-UpperCase
+  Output: 
+  Hotel Echo Lima Lima Oscar
+  Whiskey Oscar Romeo Lima Delta
 #>
-
 function ConvertTo-Nato {
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true, Position = 0)]
         [string]$Text
     )
 
@@ -22,10 +31,11 @@ function ConvertTo-Nato {
         "m" = "Mike";     "n" = "November"; "o" = "Oscar";   "p" = "Papa"
         "q" = "Quebec";   "r" = "Romeo";    "s" = "Sierra";  "t" = "Tango"
         "u" = "Uniform";  "v" = "Victor";   "w" = "Whiskey"; "x" = "X-ray"
-        "y" = "Yankee";   "z" = "Zulu"
+        "y" = "Yankee";   "z" = "Zulu";
         "1" = "One";      "2" = "Two";      "3" = "Three";   "4" = "Four"
         "5" = "Five";     "6" = "Six";      "7" = "Seven";   "8" = "Eight"
-        "9" = "Nine";     "0" = "Zero"
+        "9" = "Nine";     "0" = "Zero";     "." = "Point";   "-" = "Dash";
+        "(" = "Brackets On"; ")" = "Brackets off"; "/" = "Slant"
     }
 
     $Text.Split(' ') | ForEach-Object {

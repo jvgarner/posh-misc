@@ -1,14 +1,23 @@
 <#
 .SYNOPSIS
-  Lowercase the text
+  Converts input text to lowercase.
 .DESCRIPTION
-  Lowercase the text
+  Converts input text to lowercase. Uses the current culture of the system.
+.PARAMETER Text
+  The string to convert to lowercase.
 .INPUTS
-  System.String[]
+  System.String
 .OUTPUTS
-  Text as Lowercase
+  System.String
+.EXAMPLE
+  ConvertTo-LowerCase "ABC"
+  Output: abc
+.EXAMPLE
+  "HELLO" | ConvertTo-LowerCase
+  Output: hello
+.LINK
+ConvertTo-UpperCase
 #>
-
 function ConvertTo-LowerCase {
     Param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true, Position = 0)]

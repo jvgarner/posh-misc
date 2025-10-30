@@ -1,17 +1,24 @@
 <#
 .SYNOPSIS
-  Uppercase the text
-.DESCRIPTION
-  Uppercase the text
+  Converts input text to uppercase.
+.PARAMETER Text
+  The string to convert to uppercase. Uses current culture of the system.
 .INPUTS
-  System.String[]
+  System.String
 .OUTPUTS
-  Text as uppercase
+  System.String
+.EXAMPLE
+  ConvertTo-UpperCase "abc"
+  Output: ABC
+.EXAMPLE
+  "hello" | ConvertTo-upperCase
+  Output: HELLO
+.LINK
+ConvertTo-LowerCase
 #>
-
 function ConvertTo-UpperCase {
     Param(
-        [Parameter(ValueFromPipeline = $true, Position = 0)]
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true, Position = 0)]
         [string]$Text
     )
     
