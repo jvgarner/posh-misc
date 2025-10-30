@@ -29,6 +29,13 @@ function Get-DirectorySize
         [Alias("h")]
         [switch]$HumanReadable
     )
+    
+    # $requiredModule = 'Get-HumanReadableBytes'
+    # if (-not (Get-Module -ListAvailable -Name $requiredModule)) {
+    #     Write-Error "Required module '$requiredModule' is not installed. Aborting execution."
+    #     return
+    # }
+
     $actualSize = (Get-ChildItem $Path -Recurse -Force | Measure-Object -Property Length -Sum).Sum
     if($HumanReadable)
     {
