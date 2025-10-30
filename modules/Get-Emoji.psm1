@@ -7,19 +7,25 @@
   The emoji with the search phrase highlighted.
 .EXAMPLE
   Get-Emoji ghost
+  Output:🫥 👻
+.EXAMPLE
+  Get-Emoji ghost -IncludeKeywords
   Output:
-  🫥 dotted line face depressed hidden invisible meh whatever wtv disappear ghost hide
-  👻 ghost boo creature excited face fairy tale fairytale fantasy ghostface halloween haunting monster scary silly spooky
+    🫥 dotted line face depressed hidden invisible meh whatever wtv disappear ghost hide
+    👻 ghost boo creature excited face fairy tale fairytale fantasy ghostface halloween haunting monster scary silly spooky
 .EXAMPLE
   emoji coffee
-  Output: ☕ coffee beverage cafe caffeine drink hot hot beverage hotbeverage morning starbucks steaming tea
+  Output:☕
 #>
 
 function Get-Emoji
 {
     Param(
         [Parameter(ValueFromPipeline = $true, Position = 0)]
-        [string]$SearchString = "smile"
+        [string]$SearchString = "smile",
+
+        [Parameter()]
+        [switch]$IncludeKeywords = $false
     )
 
     $emoji = @"
@@ -1922,7 +1928,12 @@ function Get-Emoji
 🏴󠁧󠁢󠁳󠁣󠁴󠁿 flag scotland flag scotland
 🏴󠁧󠁢󠁷󠁬󠁳󠁿 flag wales flag wales
 "@
-    $emoji -split "`n" | Select-String -Pattern $SearchString -CaseSensitive:$false
+    $emojis = $emoji -split "`n" | Select-String -Pattern $SearchString -CaseSensitive:$false 
+    if ($IncludeKeywords) {
+      $emojis
+    } else {
+      ($emojis | ForEach-Object { ($_ -split ' ')[0] }) -join ' '
+    }
 }
 
 New-Alias emoji Get-Emoji 
