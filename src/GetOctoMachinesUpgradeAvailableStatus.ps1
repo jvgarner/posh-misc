@@ -12,10 +12,6 @@ Write-Host $machines
 
 foreach ($m in $machines | Where-Object {$_.IsDisabled -eq 0})
 {
-    # Write-Host "`nChecking Machine: $($m.Name)"
-    # Write-Host "`tIsDisabled: $($m.IsDisabled)"
-    # Write-Host "`tHealthStatus: $($m.HealthStatus)"
-    # Write-Host "`tHasLatestCalamari: $($m.HasLatestCalamari)"
     if ($m.HasLatestCalamari -eq 0)
     {
         throw "Machine: $($m.Name) HasLatestCalamari: $($m.HasLatestCalamari)"
