@@ -1,40 +1,57 @@
 <#
 .SYNOPSIS
   Gets line, word, and character counts for one or more files (wc clone).
-.DESCRIPTION
-  Mimics the Unix `wc` command by reporting line, word, and character counts for each file.
 .PARAMETER Paths
   One or more file paths to process.
-.PARAMETER l
+.PARAMETER Lines
   Show only line counts.
-.PARAMETER w
+.PARAMETER Words
   Show only word counts.
-.PARAMETER c
+.PARAMETER Chars
   Show only character counts.
-.INPUTS
-  [string[]] File paths.
 .OUTPUTS
-  [PSCustomObject] with file statistics.
+  [PSCustomObject] with char, word, and line counts for each file.
 .EXAMPLE
-  Get-FileContentData -Paths .\file.txt
+  Get-FileContentData -Words -Chars test1.txt test2.txt test3.txt
+  Output:
+    Words Chars File
+    ----- ----- ----
+        5    26 test1.txt
+        5    30 test2.txt
+      288  1502 test3.txt
 .EXAMPLE
-  wc .\file.txt -l
+  Get-FileContentData -Lines test1.txt test2.txt
+  Output:
+  Lines File
+  ----- ----
+      1 test1.txt
+      5 test2.txt
+.EXAMPLE
+  wc test1.txt test2.txt test3.txt
+  Output:
+  Lines Words Characters File
+  ----- ----- ---------- ----
+      1     5         26 test1.txt
+      5     5         30 test2.txt
+     32   288       1502 test3.txt
 #>
-
 function Get-FileContentData {
     [CmdletBinding(DefaultParameterSetName = 'All')]
     param (
         [Parameter(Mandatory=$true, ValueFromRemainingArguments=$true)]
         [string[]]$Paths,
 
-        [Parameter(ParameterSetName = 'Lines')]
-        [switch]$l,
+        [Parameter(Mandatory = $false)]
+        [Alias("l")]
+        [switch]$Lines,
 
-        [Parameter(ParameterSetName = 'Words')]
-        [switch]$w,
+        [Parameter(Mandatory = $false)]
+        [Alias("w")]
+        [switch]$Words,
 
-        [Parameter(ParameterSetName = 'Chars')]
-        [switch]$c
+        [Parameter(Mandatory = $false)]
+        [Alias("c")]
+        [switch]$Chars
     )
     
     foreach ($Path in $Paths) {
@@ -44,18 +61,22 @@ function Get-FileContentData {
         }
 
         $content = Get-Content $Path -Raw
-        $lines = ($content -split "`r?`n").Count
-        $words = ($content -split '\s+').Count
-        $chars = $content.Length
+        $output = [ordered]@{}
 
-        $output = [PSCustomObject]@{
-            File       = $Path
-            Lines      = if ($l -or (-not ($l -or $w -or $c))) { $lines } else { $null }
-            Words      = if ($w -or (-not ($l -or $w -or $c))) { $words } else { $null }
-            Characters = if ($c -or (-not ($l -or $w -or $c))) { $chars } else { $null }
+        if ($Lines -or (-not ($Lines -or $Words -or $Chars))) {
+            $output.Lines = ($content -split "`r?`n").Count
         }
 
-        $output
+        if ($Words -or (-not ($Lines -or $Words -or $Chars))) {
+            $output.Words = ($content -split '\s+').Count
+        }
+
+        if ($Chars -or (-not ($Lines -or $Words -or $Chars))) {
+            $output.Chars = $content.Length
+        }
+
+        $output.File = $Path
+        [PSCustomObject]$output
     }
 }
 
