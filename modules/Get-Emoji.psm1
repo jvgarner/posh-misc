@@ -81,8 +81,8 @@ function Get-Emoji
 😷 mask cold dentist dermatologist doctor dr face face with medical mask germs medicine sick
 🤒 face with thermometer face ill sick thermometer
 🤕 face with head bandage bandage face hurt injury ouch
-🤢 nauseated face face gross nasty nauseated sick vomit throw up
-🤮 face vomiting ew gross puke sick spew throw up vomit face with open mouth vomiting
+🤢 nauseated face face gross nasty nauseated sick vomit throw up barf
+🤮 face vomiting ew gross puke sick spew throw up vomit face with open mouth vomiting barf
 🤧 sneezing face face fever flu gesundheit sick sneeze
 🥵 hot face dying face feverish heat stroke hot panting red faced sweating tongue out
 🥶 cold face blue blue faced cold cold teeth face freezing frostbite icicles subzero
