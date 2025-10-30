@@ -52,40 +52,86 @@ If (-Not (Test-Path Variable:PSise)) {  # Only run this in the console and not i
                 }
         }
 
+        Set-Alias grep Select-String -Scope Global 
+
         # Personal modules
-        $modulespath = 'c:\src\personal\posh-misc\src\'
-        Get-ChildItem ($modulespath + "*.psm1") | ForEach-Object {Import-Module (Join-Path $modulespath $_.Name)} | Out-Null
+        $modulespath = 'c:\src\personal\posh-misc\modules\'
+        Get-ChildItem ($modulespath + "*.psm1") | ForEach-Object { Import-Module $_.FullName }
     }
 
-    function SqlStart {
-        Write-Output '>sudo start-service -Name MSSQLSERVER'
-        sudo start-service -Name MSSQLSERVER
+    function cpwd {
+        Get-Location | Set-Clipboard
     }
 
-    function SqlStop {
-        Write-Output '>sudo stop-service -Name MSSQLSERVER'
-        sudo stop-service -Name MSSQLSERVER
+    function cguid {
+        Get-Guid | Set-Clipboard
     }
 
-    function ProfileEdit {
-        Write-Output '>code $PROFILE'
-        code $PROFILE 
+    function cgid {
+        Get-IsoDate | Set-Clipboard 
     }
 
-    function RemindMe {
-        Write-Output 'scb - Set-Clipboard'
-        Write-Output 'gcb - Set-Clipboard'
-        Write-Output 'z - cd improved'
-        Write-Output 'oc - Octopus Deploy CLI'
+    function cpaths {
+        Get-Paths | Set-Clipboard
+    }
+
+    function pomodoro {
+        timer "20m"
+    }
+
+    function wifi {
+        netsh wlan connect name="SEWIFI"
+    }
+
+    function wifit {
+        netsh wlan disconnect
+        netsh wlan connect name="SEWIFI"
+    }
+
+    function cheat {
+        Write-Output ''
+        Write-Output 'Misc Reminders'
+        Write-Output '============================='
+        Write-Output "code `$PROFILE - Edit your profile"
+        Write-Output "type a partial command then use F8 key to search history"
+
+        Write-Output ''
+        Write-Output 'Misc Custom or Useful Aliases'
+        Write-Output '============================='
+        Write-Output 'alpha - Get-Alphabet'
+        Write-Output 'emoji - Get-Emoji'
+        Write-Output 'gcb - Get-Clipboard'
+        Write-Output 'gid - Get-IsoDate'
+        Write-Output 'guid - Get-Guid - Get a random guid'
         Write-Output 'lc - ConvertTo-LowerCase'
+        Write-Output 'lorem - Get-LoremIpsum'
+        Write-Output 'nato - ConvertTo-Nato - convert text to nato equivalent'
+        Write-Output 'paths - Get-Paths - all paths, one per line'
+        Write-Output 'rn - current datetime and a calendar'
+        Write-Output 'scb - Set-Clipboard'
+        Write-Output 'sh - Select-CommandHistory - search FULL command history'
         Write-Output 'uc - ConvertTo-UpperCase'
-        Write-Output 'nato - ConvertTo-Nato'
-        Write-Output 'wc - Get-FileContentData'
+        Write-Output 'z - cd improved'
+
+        Write-Output ''
+        Write-Output 'Unix-Clone Commands'
+        Write-Output '============================='
+        Write-Output 'cat - Get-Content'
+        Write-Output 'cd - Set-Location'
+        Write-Output 'cls - Clear-Host'
+        Write-Output 'cp - Copy-Item'
+        Write-Output 'echo - Write-Output'
+        Write-Output 'history - Get-History'
+        Write-Output 'kill - Stop-Process'
         Write-Output 'ls - Get-ChildItemColor'
         Write-Output 'lsw - Get-ChildItemColorFormatWide'
-        Write-Output 'sh - Select-CommandHistory for parameter'
+        Write-Output 'man - Get-Help'
+        Write-Output 'mv - Move-Item'
+        Write-Output 'pwd - Get-Location'
+        Write-Output 'rm - Remove-Item'
         Write-Output 'touch - Set-FileTime'
-        Get-ChildItemColor 'c:\src\personal\posh-misc\src\'
+        Write-Output 'wc - Get-FileContentData'
+        Write-Output 'which - Get-Command' 
     }
 
     Initialize-Modules
