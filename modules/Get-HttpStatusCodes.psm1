@@ -75,12 +75,17 @@ function Get-HttpStatusCodes {
 "@ -split "`r?`n"
 
     if ($Keyword) {
-        $statuses | Where-Object { $_ -match $Keyword }
-    } else {
+        if ($Keyword -match '^\d+$') {
+            # Numeric keyword: match lines starting with that number
+            $statuses | Where-Object { $_ -match "^$Keyword" }
+        } else {
+            # else match lines that contain the text
+            $statuses | Where-Object { $_ -match $Keyword }
+        }
+      } else {
         $statuses
-    }
+      }
 }
 
-
-New-Alias httpstatus Get-HttpStatusCodes 
+New-Alias http Get-HttpStatusCodes 
 Export-ModuleMember -Function * -Alias * 
