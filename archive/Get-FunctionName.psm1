@@ -1,3 +1,4 @@
+# TODO: fix xml docs or move to archive?
 function Get-FunctionName ([int]$StackNumber = 1) {
     return [string]$(Get-PSCallStack)[$StackNumber].FunctionName
 }
