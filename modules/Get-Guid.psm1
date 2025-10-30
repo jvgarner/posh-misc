@@ -29,5 +29,6 @@ function Get-Guid {
     return [guid]::NewGuid().ToString()
 }
 
-New-Alias -Name guid -value Get-Guid
+New-Alias guid Get-Guid
+New-Alias uuid Get-Guid
 Export-ModuleMember -Function * -Alias *
