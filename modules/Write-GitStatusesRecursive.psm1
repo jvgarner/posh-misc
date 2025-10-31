@@ -15,7 +15,11 @@ function Write-GitStatuses {
   Param(
     [Parameter(Mandatory = $false)]
     [Alias("f")]
-    [Switch]$Fetch = $false
+    [Switch]$Fetch = $false,
+
+    [Parameter(Mandatory = $false)]
+    [Alias("p")]
+    [Switch]$Pull = $false
   )
 
     $requiredModule = 'Posh-Git'
@@ -29,10 +33,12 @@ function Write-GitStatuses {
         ForEach-Object { 
             $loc = $_.FullName.TrimEnd('.git')
             Set-Location $loc > $null;
-            if($Fetch) {
-                # Write-Host "$loc git fetch --all"
-                git fetch --all
+            if($Pull) {
+                git pull --all --rebase --quiet --ff-only
+            }elseif($Fetch) {
+                git fetch --all -q
             }
+            
             Write-Host $loc -NoNewLine 
             Write-VcsStatus
         }
