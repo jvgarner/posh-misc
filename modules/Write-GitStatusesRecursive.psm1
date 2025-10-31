@@ -3,6 +3,8 @@
   Write the git status for every git repository recursively found within the current directory. Requires posh-git to be installed.
 .PARAMETER Fetch
   Executes a "git fetch --all" on every git repository before writing out the status.
+.PARAMETER Pull
+  Executes a "git pull --all --rebase --quiet --ff-only" on every git repository before writing out the status.
 .EXAMPLE
   D:\source\Write-GitStatuses
   Output:
@@ -19,7 +21,15 @@ function Write-GitStatuses {
 
     [Parameter(Mandatory = $false)]
     [Alias("p")]
-    [Switch]$Pull = $false
+    [Switch]$Pull = $false,
+
+    [Parameter(Mandatory = $false)]
+    [Alias("r")]
+    [Switch]$RemoveStale = $false,
+
+    [Parameter(Mandatory = $false)]
+    [Alias("s")]
+    [Switch]$ShowStaleBranches = $false
   )
 
     $requiredModule = 'Posh-Git'
@@ -33,14 +43,26 @@ function Write-GitStatuses {
         ForEach-Object { 
             $loc = $_.FullName.TrimEnd('.git')
             Set-Location $loc > $null;
-            if($Pull) {
+            if($RemoveStale) {
+                git checkout main
+                git pull --all --rebase --quiet --ff-only
+                if ($LASTEXITCODE -eq 0) {
+                    Remove-GitStaleBranches
+                } else {
+                    Write-Host "can't prune 'gone' branches - git pull failed with exit code $LASTEXITCODE"
+                }
+            }elseif($Pull) {
                 git pull --all --rebase --quiet --ff-only
             }elseif($Fetch) {
                 git fetch --all -q
             }
             
             Write-Host $loc -NoNewLine 
-            Write-VcsStatus
+            Write-VcsStatus 
+
+            if($ShowStaleBranches) {
+              git branch -vv | Where-Object { $_ -match 'gone\]' } | Write-Host
+            }
         }
     Set-Location $startDir 
 }
