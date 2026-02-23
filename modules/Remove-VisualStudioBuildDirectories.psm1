@@ -42,6 +42,8 @@ function Remove-VisualStudioBuildDirectories {
       $folders.Add('.git')
   }
 
+  # q: How to delete directories recursively in PowerShell?
+
   Get-ChildItem $Path -Recurse -Directory -Include $folders -Force | Remove-Item -Recurse -Force -WhatIf:$WhatIf
 }
 
