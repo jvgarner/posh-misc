@@ -5,6 +5,12 @@
   Executes a "git fetch --all" on every git repository before writing out the status.
 .PARAMETER Pull
   Executes a "git pull --all --rebase --quiet --ff-only" on every git repository before writing out the status.
+.PARAMETER RemoveStale
+  Removes stale branches in each git repository.
+.PARAMETER ShowStaleBranches
+  Shows stale branches in each git repository.
+.PARAMETER ShowStashList
+  Executes a "git stash list" on every git repository before writing out the status.
 .EXAMPLE
   D:\source\Write-GitStatuses
   Output:
@@ -29,7 +35,11 @@ function Write-GitStatuses {
 
     [Parameter(Mandatory = $false)]
     [Alias("s")]
-    [Switch]$ShowStaleBranches = $false
+    [Switch]$ShowStaleBranches = $false,
+
+    [Parameter(Mandatory = $false)]
+    [Alias("t")]
+    [Switch]$ShowStashList = $false
   )
 
     $requiredModule = 'Posh-Git'
@@ -62,6 +72,9 @@ function Write-GitStatuses {
 
             if($ShowStaleBranches) {
               git branch -vv | Where-Object { $_ -match 'gone\]' } | Write-Host
+            }
+            if($ShowStashList) {
+              git stash list | Write-Host
             }
         }
     Set-Location $startDir 
