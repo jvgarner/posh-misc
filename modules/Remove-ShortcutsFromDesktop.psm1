@@ -20,4 +20,5 @@ function Remove-ShortcutsFromDesktop {
     }
 }
 
+New-Alias cleanshortcuts Remove-ShortcutsFromDesktop
 Export-ModuleMember -Function * -Alias *
